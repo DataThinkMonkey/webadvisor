@@ -1,6 +1,10 @@
 import requests
 from bs4 import BeautifulSoup
 from itertools import chain
+  
+name = input("Enter last name of instructor: ")
+term = input("Enter semester as YY/TR: ")
+
 
 baseurl = 'https://webadvisor.iwcc.edu/WebAdvisor/WebAdvisor'
 main_page = {'type': 'M', 'pid': 'CORE-WBMAIN'}
@@ -14,13 +18,13 @@ r = s.get(baseurl, params=main_page)
 
 r = s.get(baseurl, params=section_search)
 r2 = s.post(r.request.url, data={
-'VAR1': '17/FA',
-'VAR9': 'Bernard',
+'VAR1': term,
+'VAR9': name,
 'LIST.VAR1_CONTROLLER': 'LIST.VAR1',
 'LIST.VAR1_MEMBERS': 'LIST.VAR1*LIST.VAR2*LIST.VAR3*LIST.VAR4',
 'LIST.VAR1_MAX': '5',
-# Change to pull by course prefix
-# 'LIST.VAR1_1': 'CSP',
+# Uncomment and change to pull by course prefix
+# 'LIST.VAR1_1': 'NET',
 })
 
 # assert 'Intro Programming' in r2.text
